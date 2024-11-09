@@ -23,7 +23,7 @@
           :pagination="false"
         >
           <template #bodyCell="{ column, record }">
-            <template v-if="column.key === 'action'">
+            <template v-if="column.dataIndex === 'action'">
               <a-space size="middle">
                 <a-button type="link" @click="editRecord(record)"
                   >编辑</a-button
@@ -74,8 +74,7 @@
 
 <script lang="ts" setup>
 import { ref, computed, reactive } from 'vue'
-import moment from 'moment'
-import { ColumnsType, TableColumnType } from 'ant-design-vue/es/table/interface'
+import { ColumnsType, ColumnType } from 'ant-design-vue/es/table/interface'
 
 // 模拟数据
 interface MotherOrder {
@@ -90,13 +89,13 @@ const data = ref<MotherOrder[]>([
     id: 1,
     title: '母单1',
     status: 'active',
-    submittedAt: moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+    submittedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
   },
   {
     id: 2,
     title: '母单2',
     status: 'inactive',
-    submittedAt: moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')
+    submittedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
   }
   // 更多数据...
 ])
@@ -114,7 +113,7 @@ const columns: ColumnsType<MotherOrder> = [
   {
     title: '操作',
     key: 'action',
-    scopedSlots: { customRender: 'action' } as TableColumnType<MotherOrder>
+    scopedSlots: { customRender: 'action' } as ColumnType<MotherOrder>
   }
 ]
 
