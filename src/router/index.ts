@@ -1,13 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Home from '../views/Home.vue'
-import MotherOrderList from '../components/MotherOrderList.vue'
+import MotherOrderList from '@/views/MotherOrderList/motherOrderList.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
   {
     path: '/mother-orders',
     name: 'MotherOrders',
