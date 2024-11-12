@@ -12,13 +12,13 @@
 <script lang="ts" setup>
 import { computed, defineProps, defineEmits } from 'vue'
 
-// 定义props
+// 声明组件接收的属性，及对应属性的类型契约，返回值是——
 const props = defineProps<{
   isVisible: boolean // 注意这里用modelValue对应v-model
   title?: string
 }>()
 
-// 定义emit
+// 声明允许emit的函数，及对应函数的类型，并返回一个函数
 const emit = defineEmits<{
   'update:isVisible': [value: boolean]
   ok: []
