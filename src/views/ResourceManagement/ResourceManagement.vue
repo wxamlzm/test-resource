@@ -10,7 +10,9 @@ import {
   message,
   Card,
   Space,
-  Tag
+  Tag,
+  Switch,
+  SwitchProps
 } from 'ant-design-vue'
 import type { Resource, QueryParams } from './types.ts'
 import type {
@@ -62,6 +64,14 @@ const statusOptions = [
 // 表格列定义
 const columns: TableColumnType<Resource>[] = [
   {
+    title: '编号',
+    dataIndex: 'index',
+    key: 'index',
+    width: 60,
+    align: 'center',
+    customRender: ({ index }) => `${index + 1}`
+  },
+  {
     title: '资源名称',
     dataIndex: 'name',
     key: 'name'
@@ -74,14 +84,33 @@ const columns: TableColumnType<Resource>[] = [
       return h(Tag, { color: 'blue' }, () => String(text).toUpperCase())
     }
   },
+  // {
+  //   title: '状态',
+  //   dataIndex: 'status',
+  //   key: 'status',
+  //   customRender: ({ text }) => {
+  //     return h(Tag, { color: text === 'normal' ? 'success' : 'error' }, () =>
+  //       text === 'normal' ? '正常' : '禁用'
+  //     )
+  //   }
+  // },
   {
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    customRender: ({ text }) => {
-      return h(Tag, { color: text === 'normal' ? 'success' : 'error' }, () =>
-        text === 'normal' ? '正常' : '禁用'
-      )
+    customRender: ({ text, record }) => {
+      return h(Space, null, () => [
+        h(Tag, { color: text === 1 ? 'success' : 'error' }, () =>
+          text === 1 ? '正常' : '禁用'
+        ),
+        h(Switch, {
+          checked: text === 1,
+          onChange: (checked: boolean) => {
+            // 在这里添加更新状态的逻辑
+            console.log(`Switch is ${checked ? 'on' : 'off'}`)
+          }
+        } as SwitchProps)
+      ])
     }
   },
   {
@@ -128,13 +157,28 @@ const fetchList = async () => {
   try {
     loading.value = true
     // TODO: 替换为实际的API调用
-    const res = await fetch('/api/resources', {
-      method: 'POST',
-      body: JSON.stringify(queryParams)
-    })
-    const data = await res.json()
-    tableData.value = data.list
-    total.value = data.total
+    // const res = await fetch('/api/resources', {
+    //   method: 'POST',
+    //   body: JSON.stringify(queryParams)
+    // })
+    // const data = await res.json()
+    tableData.value = [
+      {
+        name: '资源1',
+        type: '类型1',
+        status: 0,
+        createTime: '2024-11-11',
+        updateTime: '2024-1-1'
+      },
+      {
+        name: '资源1',
+        type: '类型1',
+        status: 1,
+        createTime: '2024-11-11',
+        updateTime: '2024-1-1'
+      }
+    ]
+    // total.value = data.total
   } catch (error) {
     message.error('获取列表失败')
     console.error('获取列表失败:', error)
