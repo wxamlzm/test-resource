@@ -3,9 +3,10 @@ import type { TableProps } from 'ant-design-vue'
 
 // 定义资源通用接口
 export interface Resource {
+  id: string | number
   name: string
   type: string
-  status: string|number
+  status: string
   createTime: string
   updateTime: string
   [key: string]: any
