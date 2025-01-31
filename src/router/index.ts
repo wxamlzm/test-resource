@@ -1,30 +1,35 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import MotherOrderList from '@/views/MotherOrderList/motherOrderList.vue'
-import ResourceManagement from '@/views/ResourceManagement/ResourceManagement.vue'
-import ResourceManagementTest from '@/views/ResourceManagementTest/resourceManagementTest.vue'
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import MotherOrderList from "@/views/MotherOrderList/motherOrderList.vue";
+import ResourceManagement from "@/views/ResourceManagement/ResourceManagement.vue";
+import ResourceManagementTest from "@/views/ResourceManagementTest/resourceManagementTest.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/motherorders',
-    name: 'MotherOrders',
-    component: MotherOrderList
+    path: "/motherorders",
+    name: "MotherOrders",
+    component: MotherOrderList,
   },
   {
-    path: '/ResourceManagement',
-    name: 'ResourceManagement',
-    component: ResourceManagement
+    path: "/ResourceManagement",
+    name: "ResourceManagement",
+    component: ResourceManagement,
   },
   {
-    path: '/ResourceManagementTest',
-    name: 'ResourceManagementTest',
-    component: ResourceManagementTest
-  }
+    path: "/ResourceManagementTest",
+    name: "ResourceManagementTest",
+    component: ResourceManagementTest,
+  },
   // 其他路由
-]
+  {
+    path: "/commonTest",
+    name: "CommonTest",
+    component: () => import("@/views/CommonTest.vue"),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
