@@ -10,9 +10,7 @@ import {
   message,
   Card,
   Space,
-  Tag,
-  Switch,
-  SwitchProps
+  Tag
 } from 'ant-design-vue'
 import type { Resource, QueryParams } from './types.ts'
 import type {
@@ -84,33 +82,14 @@ const columns: TableColumnType<Resource>[] = [
       return h(Tag, { color: 'blue' }, () => String(text).toUpperCase())
     }
   },
-  // {
-  //   title: '状态',
-  //   dataIndex: 'status',
-  //   key: 'status',
-  //   customRender: ({ text }) => {
-  //     return h(Tag, { color: text === 'normal' ? 'success' : 'error' }, () =>
-  //       text === 'normal' ? '正常' : '禁用'
-  //     )
-  //   }
-  // },
   {
     title: '状态',
     dataIndex: 'status',
     key: 'status',
-    customRender: ({ text, record }) => {
-      return h(Space, null, () => [
-        h(Tag, { color: text === 1 ? 'success' : 'error' }, () =>
-          text === 1 ? '正常' : '禁用'
-        ),
-        h(Switch, {
-          checked: text === 1,
-          onChange: (checked: boolean) => {
-            // 在这里添加更新状态的逻辑
-            console.log(`Switch is ${checked ? 'on' : 'off'}`)
-          }
-        } as SwitchProps)
-      ])
+    customRender: ({ text }) => {
+      return h(Tag, { color: text === 'normal' ? 'success' : 'error' }, () =>
+        text === 'normal' ? '正常' : '禁用'
+      )
     }
   },
   {
@@ -162,6 +141,7 @@ const fetchList = async () => {
     //   body: JSON.stringify(queryParams)
     // })
     // const data = await res.json()
+
     tableData.value = [
       {
         name: '资源1',
